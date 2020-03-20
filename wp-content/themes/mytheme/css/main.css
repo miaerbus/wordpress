@@ -1,0 +1,17 @@
+header {
+  background: #111;
+  width: 100%;
+  height: 100px; }
+  header .container {
+    height: 100%; }
+  header .menu-top-bar-container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    header .menu-top-bar-container .top-bar {
+      list-style-type: none;
+      padding: 0;
+      display: flex; }
+      header .menu-top-bar-container .top-bar .menu-item {
+        margin-right: 15px; }
