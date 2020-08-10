@@ -1,0 +1,16 @@
+{
+    "name": "miaerbus/wordpress",
+    "type": "project",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "Mia Erbus",
+            "email": "mia.erbus@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {"Includes\\": "./includes"}
+    }
+}

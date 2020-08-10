@@ -4,7 +4,9 @@
  * @package MyPlugin
  */
 
-class MyPluginDeactivate
+namespace Includes\Base;
+
+class Deactivate
 {
     public static function deactivate()
     {

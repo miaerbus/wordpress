@@ -4,7 +4,9 @@
  * @package MyPlugin
  */
 
-class MyPluginActivate
+namespace Includes\Base;
+
+class Activate
 {
     public static function activate()
     {
