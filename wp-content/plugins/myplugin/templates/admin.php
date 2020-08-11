@@ -1,2 +1,2 @@
-<h1>My plugin</h1>
+<h1>My awesome plugin</h1>
 
