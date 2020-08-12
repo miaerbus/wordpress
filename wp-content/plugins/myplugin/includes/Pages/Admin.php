@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package MyPlugin
  */
@@ -22,14 +23,20 @@ class Admin extends BaseController
     public function register()
     {
         $this->settings = new SettingsApi();
-         
+
         $this->callbacks = new AdminCallbacks();
 
         $this->setPages();
 
         $this->setSubpages();
 
-        $this->settings->addPages( $this->pages )->withSubPage('Dashboard')->addSubPages($this->subpages)->register();
+        $this->setSettings();
+
+        $this->setSections();
+
+        $this->setFields();
+
+        $this->settings->addPages($this->pages)->withSubPage('Dashboard')->addSubPages($this->subpages)->register();
     }
 
     public function setPages()
@@ -40,7 +47,7 @@ class Admin extends BaseController
                 'menu_title' => 'My plugin',
                 'capability' => 'manage_options',
                 'menu_slug' => 'my_plugin',
-                'callback' => array( $this->callbacks, 'adminDashboard' ),
+                'callback' => array($this->callbacks, 'adminDashboard'),
                 'icon_url' => 'dashicons-store',
                 'position' => 110
             ],
@@ -86,5 +93,66 @@ class Admin extends BaseController
                 'callback' => array($this->callbacks, 'widgets'),
             ],
         ];
+    }
+
+    public function setSettings()
+    {
+        $args = array(
+            array(
+                'option_group' => 'my_plugin_options_group',
+                'option_name' => 'text_example',
+                'callback' => array($this->callbacks, 'myPluginOptionsGroup')
+            ),
+            array(
+                'option_group' => 'my_plugin_options_group',
+                'option_name' => 'first_name',
+            )
+        );
+
+        $this->settings->setSettings($args);
+    }
+
+    public function setSections()
+    {
+        $args = array(
+            array(
+                'id' => 'my_plugin_admin_index',
+                'title' => 'Settings',
+                'callback' => array($this->callbacks, 'myPluginAdminSection'),
+                'page' => 'my_plugin'
+            )
+        );
+
+        $this->settings->setSections($args);
+    }
+
+    public function setFields()
+    {
+        $args = array(
+            array(
+                'id' => 'text_example',
+                'title' => 'Text Example',
+                'callback' => array($this->callbacks, 'myPluginTextExample'),
+                'page' => 'my_plugin',
+                'section' => 'my_plugin_admin_index',
+                'args' => array(
+                    'label_for' => 'text_example',
+                    'class' => 'example-class'
+                )
+            ),
+            array(
+                'id' => 'first_name',
+                'title' => 'First Name',
+                'callback' => array($this->callbacks, 'myPluginFirstName'),
+                'page' => 'my_plugin',
+                'section' => 'my_plugin_admin_index',
+                'args' => array(
+                    'label_for' => 'first_name',
+                    'class' => 'example-class'
+                )
+            )
+        );
+
+        $this->settings->setFields($args);
     }
 }
