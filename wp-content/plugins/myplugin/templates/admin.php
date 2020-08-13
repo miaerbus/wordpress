@@ -10,9 +10,9 @@
 
     <div class="tab-content">
         <div id="tab-1" class="tab-pane active">
-            <form method=" post" action="options.php">
+            <form method="post" action="options.php">
                 <?php
-                settings_fields('my_plugin_options_group');
+                settings_fields('my_plugin_settings');
                 do_settings_sections('my_plugin');
                 submit_button();
                 ?>
