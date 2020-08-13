@@ -56,17 +56,6 @@ class Admin extends BaseController
                 'icon_url' => 'dashicons-store',
                 'position' => 110
             ],
-            [
-                'page_title' => 'Test',
-                'menu_title' => 'Test',
-                'capability' => 'manage_options',
-                'menu_slug' => 'test_plugin',
-                'callback' => function () {
-                    echo '<h1>External</h1>';
-                },
-                'icon_url' => 'dashicons-external',
-                'position' => 9
-            ],
         ];
     }
 
@@ -102,53 +91,15 @@ class Admin extends BaseController
 
     public function setSettings()
     {
-        $args = array(
-            array(
+        $args = array();
+
+        foreach ($this->managers as $key => $value) {
+            $args[] = array(
                 'option_group' => 'my_plugin_settings',
-                'option_name' => 'cpt_manager',
+                'option_name' => $key,
                 'callback' => array($this->callbacks_mngr, 'checkboxSanitize')
-            ),
-            array(
-                'option_group' => 'my_plugin_settings',
-                'option_name' => 'taxonomy_manager',
-                'callback' => array($this->callbacks_mngr, 'checkboxSanitize')
-            ),
-            array(
-                'option_group' => 'my_plugin_settings',
-                'option_name' => 'media_widget',
-                'callback' => array($this->callbacks_mngr, 'checkboxSanitize')
-            ),
-            array(
-                'option_group' => 'my_plugin_settings',
-                'option_name' => 'gallery_manager',
-                'callback' => array($this->callbacks_mngr, 'checkboxSanitize')
-            ),
-            array(
-                'option_group' => 'my_plugin_settings',
-                'option_name' => 'testimonial_manager',
-                'callback' => array($this->callbacks_mngr, 'checkboxSanitize')
-            ),
-            array(
-                'option_group' => 'my_plugin_settings',
-                'option_name' => 'templates_manager',
-                'callback' => array($this->callbacks_mngr, 'checkboxSanitize')
-            ),
-            array(
-                'option_group' => 'my_plugin_settings',
-                'option_name' => 'login_manager',
-                'callback' => array($this->callbacks_mngr, 'checkboxSanitize')
-            ),
-            array(
-                'option_group' => 'my_plugin_settings',
-                'option_name' => 'membership_manager',
-                'callback' => array($this->callbacks_mngr, 'checkboxSanitize')
-            ),
-            array(
-                'option_group' => 'my_plugin_settings',
-                'option_name' => 'chat_manager',
-                'callback' => array($this->callbacks_mngr, 'checkboxSanitize')
-            )
-        );
+            );
+        }
 
         $this->settings->setSettings($args);
     }
@@ -169,107 +120,21 @@ class Admin extends BaseController
 
     public function setFields()
     {
-        $args = array(
-            array(
-                'id' => 'cpt_manager',
-                'title' => 'Activate CPT Manager',
+        $args = array();
+
+        foreach ($this->managers as $key => $value) {
+            $args[] = array(
+                'id' => $key,
+                'title' => $value,
                 'callback' => array($this->callbacks_mngr, 'checkField'),
                 'page' => 'my_plugin',
                 'section' => 'my_plugin_admin_index',
                 'args' => array(
-                    'label_for' => 'cpt_manager',
+                    'label_for' => $key,
                     'class' => 'ui-toggle',
                 )
-            ),
-            array(
-                'id' => 'taxonomy_manager',
-                'title' => 'Activate Taxonomy Manager',
-                'callback' => array($this->callbacks_mngr, 'checkField'),
-                'page' => 'my_plugin',
-                'section' => 'my_plugin_admin_index',
-                'args' => array(
-                    'label_for' => 'taxonomy_manager',
-                    'class' => 'ui-toggle',
-                )
-            ),
-            array(
-                'id' => 'media_widget',
-                'title' => 'Activate Media Widget Manager',
-                'callback' => array($this->callbacks_mngr, 'checkField'),
-                'page' => 'my_plugin',
-                'section' => 'my_plugin_admin_index',
-                'args' => array(
-                    'label_for' => 'media_widget',
-                    'class' => 'ui-toggle',
-                )
-            ),
-            array(
-                'id' => 'gallery_manager',
-                'title' => 'Activate Gallery Manager',
-                'callback' => array($this->callbacks_mngr, 'checkField'),
-                'page' => 'my_plugin',
-                'section' => 'my_plugin_admin_index',
-                'args' => array(
-                    'label_for' => 'gallery_manager',
-                    'class' => 'ui-toggle',
-                )
-            ),
-            array(
-                'id' => 'testimonial_manager',
-                'title' => 'Activate Testimonial Manager',
-                'callback' => array($this->callbacks_mngr, 'checkField'),
-                'page' => 'my_plugin',
-                'section' => 'my_plugin_admin_index',
-                'args' => array(
-                    'label_for' => 'testimonial_manager',
-                    'class' => 'ui-toggle',
-                )
-            ),
-            array(
-                'id' => 'templates_manager',
-                'title' => 'Activate Templates Manager',
-                'callback' => array($this->callbacks_mngr, 'checkField'),
-                'page' => 'my_plugin',
-                'section' => 'my_plugin_admin_index',
-                'args' => array(
-                    'label_for' => 'templates_manager',
-                    'class' => 'ui-toggle',
-                )
-            ),
-            array(
-                'id' => 'login_manager',
-                'title' => 'Activate Login Manager',
-                'callback' => array($this->callbacks_mngr, 'checkField'),
-                'page' => 'my_plugin',
-                'section' => 'my_plugin_admin_index',
-                'args' => array(
-                    'label_for' => 'login_manager',
-                    'class' => 'ui-toggle',
-                )
-            ),
-            array(
-                'id' => 'membership_manager',
-                'title' => 'Activate Membership Manager',
-                'callback' => array($this->callbacks_mngr, 'checkField'),
-                'page' => 'my_plugin',
-                'section' => 'my_plugin_admin_index',
-                'args' => array(
-                    'label_for' => 'membership_manager',
-                    'class' => 'ui-toggle',
-                )
-            ),
-            array(
-                'id' => 'chat_manager',
-                'title' => 'Activate Chat Manager',
-                'callback' => array($this->callbacks_mngr, 'checkField'),
-                'page' => 'my_plugin',
-                'section' => 'my_plugin_admin_index',
-                'args' => array(
-                    'label_for' => 'chat_manager',
-                    'class' => 'ui-toggle',
-                )
-            ),
-        );
+            );
+        }
 
         $this->settings->setFields($args);
     }
