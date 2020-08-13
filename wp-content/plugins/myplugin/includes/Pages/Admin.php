@@ -91,15 +91,13 @@ class Admin extends BaseController
 
     public function setSettings()
     {
-        $args = array();
-
-        foreach ($this->managers as $key => $value) {
-            $args[] = array(
+        $args = array(
+            $args = array(
                 'option_group' => 'my_plugin_settings',
-                'option_name' => $key,
+                'option_name' => 'my_plugin',
                 'callback' => array($this->callbacks_mngr, 'checkboxSanitize')
-            );
-        }
+            )
+        );
 
         $this->settings->setSettings($args);
     }
@@ -130,6 +128,7 @@ class Admin extends BaseController
                 'page' => 'my_plugin',
                 'section' => 'my_plugin_admin_index',
                 'args' => array(
+                    'option_name' => 'my_plugin',
                     'label_for' => $key,
                     'class' => 'ui-toggle',
                 )
