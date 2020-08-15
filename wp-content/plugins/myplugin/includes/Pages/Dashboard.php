@@ -6,12 +6,12 @@
 
 namespace Includes\Pages;
 
-use Includes\Api\SettingsApi;
-use Includes\Base\BaseController;
-use Includes\Api\Callbacks\AdminCallbacks;
-use Includes\Api\Callbacks\ManagerCallbacks;
+use \Includes\Api\SettingsApi;
+use \Includes\Base\BaseController;
+use \Includes\Api\Callbacks\AdminCallbacks;
+use \Includes\Api\Callbacks\ManagerCallbacks;
 
-class Admin extends BaseController
+class Dashboard extends BaseController
 {
     public $settings;
 
@@ -20,8 +20,6 @@ class Admin extends BaseController
     public $callbacks_mngr;
 
     public $pages = array();
-
-    public $subpages = array();
 
     public function register()
     {
@@ -33,15 +31,13 @@ class Admin extends BaseController
 
         $this->setPages();
 
-        $this->setSubpages();
-
         $this->setSettings();
 
         $this->setSections();
 
         $this->setFields();
 
-        $this->settings->addPages($this->pages)->withSubPage('Dashboard')->addSubPages($this->subpages)->register();
+        $this->settings->addPages($this->pages)->withSubPage('Dashboard')->register();
     }
 
     public function setPages()
@@ -55,36 +51,6 @@ class Admin extends BaseController
                 'callback' => array($this->callbacks, 'adminDashboard'),
                 'icon_url' => 'dashicons-store',
                 'position' => 110
-            ],
-        ];
-    }
-
-    public function setSubpages()
-    {
-        $this->subpages = [
-            [
-                'parent_slug' => 'my_plugin',
-                'page_title' => 'Custom Post Types',
-                'menu_title' => 'CPT',
-                'capability' => 'manage_options',
-                'menu_slug' => 'my_plugin_cpt',
-                'callback' => array($this->callbacks, 'postTypes'),
-            ],
-            [
-                'parent_slug' => 'my_plugin',
-                'page_title' => 'Custom Taxonomies',
-                'menu_title' => 'Taxonomies',
-                'capability' => 'manage_options',
-                'menu_slug' => 'my_plugin_taxonomies',
-                'callback' => array($this->callbacks, 'taxonomies'),
-            ],
-            [
-                'parent_slug' => 'my_plugin',
-                'page_title' => 'Custom Widgets',
-                'menu_title' => 'Widgets',
-                'capability' => 'manage_options',
-                'menu_slug' => 'my_plugin_widgets',
-                'callback' => array($this->callbacks, 'widgets'),
             ],
         ];
     }
