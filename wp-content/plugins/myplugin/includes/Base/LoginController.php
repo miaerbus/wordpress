@@ -10,7 +10,7 @@ use \Includes\Api\SettingsApi;
 use \Includes\Base\BaseController;
 use \Includes\Api\Callbacks\AdminCallbacks;
 
-class CustomPostTypeController extends BaseController
+class LoginController extends BaseController
 {
     public $callbacks;
 
@@ -18,7 +18,7 @@ class CustomPostTypeController extends BaseController
 
     public function register()
     {
-        if (!$this->activated('cpt_manager')) {
+        if (!$this->activated('login_manager')) {
             return;
         }
 
@@ -38,11 +38,11 @@ class CustomPostTypeController extends BaseController
         $this->subpages = [
             [
                 'parent_slug' => 'my_plugin',
-                'page_title' => 'Custom Post Types',
-                'menu_title' => 'CPT Manager',
+                'page_title' => 'Login',
+                'menu_title' => 'Login Manager',
                 'capability' => 'manage_options',
-                'menu_slug' => 'my_plugin_cpt',
-                'callback' => array($this->callbacks, 'postTypes'),
+                'menu_slug' => 'my_plugin_login',
+                'callback' => array($this->callbacks, 'login'),
             ]
         ];
     }

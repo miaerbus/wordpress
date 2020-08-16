@@ -10,7 +10,7 @@ use \Includes\Api\SettingsApi;
 use \Includes\Base\BaseController;
 use \Includes\Api\Callbacks\AdminCallbacks;
 
-class CustomPostTypeController extends BaseController
+class MediaWidgetController extends BaseController
 {
     public $callbacks;
 
@@ -18,7 +18,7 @@ class CustomPostTypeController extends BaseController
 
     public function register()
     {
-        if (!$this->activated('cpt_manager')) {
+        if (!$this->activated('media_widget')) {
             return;
         }
 
@@ -38,11 +38,11 @@ class CustomPostTypeController extends BaseController
         $this->subpages = [
             [
                 'parent_slug' => 'my_plugin',
-                'page_title' => 'Custom Post Types',
-                'menu_title' => 'CPT Manager',
+                'page_title' => 'Media Widget',
+                'menu_title' => 'Media Widget Manager',
                 'capability' => 'manage_options',
-                'menu_slug' => 'my_plugin_cpt',
-                'callback' => array($this->callbacks, 'postTypes'),
+                'menu_slug' => 'my_plugin_media_widget',
+                'callback' => array($this->callbacks, 'mediaWidget'),
             ]
         ];
     }
