@@ -17,7 +17,7 @@ class AdminCallbacks extends BaseController
 
     public function postTypes()
     {
-        return require_once($this->plugin_path . '/templates/post_types.php');
+        return require_once($this->plugin_path . '/templates/cpt.php');
     }
 
     public function taxonomies()

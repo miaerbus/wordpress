@@ -17,16 +17,15 @@ class CptCallbacks
     {
         $output = get_option('my_plugin_cpt');
 
-        if (empty($output)) {
-            // first cpt save, as $output is empty single array
+        if (count($output) == 0) {
             $output = array($input['post_type'] => $input);
-        } else {
-            foreach ($output as $key => $value) {
-                if ($input['post_type'] === $key) {
-                    $output[$key] = $input;
-                } else {
-                    $output[$input['post_type']] = $input;
-                }
+            return $output;
+        }
+        foreach ($output as $key => $value) {
+            if ($input['post_type'] === $key) {
+                $output[$key] = $input;
+            } else {
+                $output[$input['post_type']] = $input;
             }
         }
         return $output;
@@ -36,7 +35,7 @@ class CptCallbacks
     {
         $name = $args['label_for'];
 
-        echo '<input type="text" class="regular-text" id="' . $name . '" name="' . $args['option_name'] . '[' . $name . ']" value="" placeholder="' . $args['placeholder'] . '">';
+        echo '<input type="text" class="regular-text" id="' . $name . '" name="' . $args['option_name'] . '[' . $name . ']" value="" placeholder="' . $args['placeholder'] . '" required>';
     }
 
     public function checkboxField($args)
