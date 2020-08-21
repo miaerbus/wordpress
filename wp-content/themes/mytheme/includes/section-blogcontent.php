@@ -17,6 +17,7 @@ if (have_posts()) {
             // the_tags();
             $tags = get_the_tags();
             // echo '<pre>'; print_r($tags); echo '</pre>';
+            echo 'Tags: ';
             if ($tags) {
                 foreach ($tags as $tag) {
                     echo '<a class="badge badge-success" href="' . get_tag_link($tag->term_id) . '">' . $tag->name . '</a>, ';
@@ -28,6 +29,7 @@ if (have_posts()) {
             <?php
             $categories = get_the_category();
             // echo '<pre>'; print_r($categories); echo '</pre>';
+            echo 'Categories: ';
             if ($categories) {
                 foreach ($categories as $category) {
                     echo '<a class="badge badge-success" href="' . get_category_link($category->term_id) . '">' . $category->name . '</a>, ';
@@ -36,7 +38,8 @@ if (have_posts()) {
             ?>
         </p>
 
-        <?php comments_template('comments.php', true); ?>
+        <?php //comments_template('comments.php', true); 
+        ?>
 
 <?php
         the_content();
