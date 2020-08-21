@@ -4,7 +4,9 @@
   "description": "My Wordpress Development",
   "main": "index.js",
   "scripts": {
-    "compile:sass": "node-sass wp-content/themes/mytheme/sass/main.scss wp-content/themes/mytheme/css/main.css -w"
+    "build:style": "node-sass wp-content/themes/mytheme/sass/main.scss wp-content/themes/mytheme/css/main.css -w",
+    "build:scripts": "wp-scripts build wp-content/themes/mytheme/src/index.js -o wp-content/themes/mytheme/build/index.js",
+    "watch:scripts": "wp-scripts start wp-content/themes/mytheme/src/index.js -o wp-content/themes/mytheme/build/index.js"
   },
   "author": "Mia Erbus",
   "keywords": [
@@ -17,8 +19,9 @@
     "scss"
   ],
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
+    "@wordpress/scripts": "12.1.1",
+    "@babel/core": "^7.11.4",
+    "@babel/preset-env": "^7.11.0",
     "babelify": "^8.0.0",
     "browser-sync": "^2.18.13",
     "browserify": "^14.5.0",
@@ -38,11 +41,6 @@
     "gulp-uglifycss": "^1.0.9",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
-  },
-  "babel": {
-    "presets": [
-      "env"
-    ]
   },
   "browserify": {
     "transform": [

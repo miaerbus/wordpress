@@ -1,4 +1,4 @@
-const { registerBlockType } = wp.blocks;
+const { registerBlockType } = wp.blocks
 
 registerBlockType('mytheme/custom-cta', {
   // built-in attributes
@@ -13,6 +13,8 @@ registerBlockType('mytheme/custom-cta', {
   // custom functions
 
   // built-in functions
-  edit() {},
+  edit() {
+    return <div>hello world!</div>
+  },
   save() {},
 })
