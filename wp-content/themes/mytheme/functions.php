@@ -1,5 +1,8 @@
 <?php
 
+/**
+ *  Load Bootstrap and custom CSS
+ */
 function load_css()
 {
     wp_register_style('bootstrap', get_template_directory_uri() . '/css/bootstrap.min.css', array(), false, 'all');
@@ -10,6 +13,9 @@ function load_css()
 }
 add_action('wp_enqueue_scripts', 'load_css');
 
+/**
+ *  Load JQuery and Bootstrap JS
+ */
 function load_js()
 {
     wp_enqueue_script('jquery');
@@ -18,11 +24,16 @@ function load_js()
 }
 add_action('wp_enqueue_scripts', 'load_js');
 
-
+/**
+ *  Add extra functionalities to the theme
+ */
 add_theme_support('menus');
 add_theme_support('post-thumbnails');
 add_theme_support('widgets');
 
+/**
+ *  Register the navigation menus
+ */
 register_nav_menus(
     array(
         'top-bar' => 'Top bar location',
@@ -30,9 +41,15 @@ register_nav_menus(
     )
 );
 
+/**
+ *  Add different image sizes
+ */
 add_image_size('blog-large', 800, 400, false);
 add_image_size('blog-small', 300, 200, true);
 
+/**
+ *  Custom sidebar
+ */
 function my_sidebars()
 {
     register_sidebar(
@@ -54,6 +71,9 @@ function my_sidebars()
 }
 add_action('widgets_init', 'my_sidebars');
 
+/**
+ *  Custom post type
+ */
 function my_first_post_type()
 {
     $args = array(
@@ -72,6 +92,9 @@ function my_first_post_type()
 }
 add_action('init', 'my_first_post_type');
 
+/**
+ *  Custom taxonomy
+ */
 function my_first_taxonomy()
 {
     $args = array(
@@ -85,3 +108,9 @@ function my_first_taxonomy()
     register_taxonomy('brand', array('cars'), $args);
 }
 add_action('init', 'my_first_taxonomy');
+
+
+/**
+ *  Custom Gutenberg blocks
+ */
+require get_template_directory() . '/includes/gutenberg.php';
