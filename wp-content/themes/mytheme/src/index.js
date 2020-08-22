@@ -1,6 +1,13 @@
 const { registerBlockType } = wp.blocks
-const { RichText, InspectorControls, ColorPalette, MediaUpload } = wp.editor
+const {
+  RichText,
+  InspectorControls,
+  ColorPalette,
+  MediaUpload,
+  InnerBlocks,
+} = wp.editor
 const { PanelBody, IconButton, RangeControl } = wp.components
+const ALLOWED_BLOCKS = ['core/button']
 
 registerBlockType('mytheme/custom-cta', {
   // built-in attributes
@@ -158,6 +165,7 @@ registerBlockType('mytheme/custom-cta', {
           onChange={onChangeBody}
           style={{ color: bodyColor }}
         />
+        <InnerBlocks allowedBlocks={ALLOWED_BLOCKS} />
       </div>,
     ]
   },
@@ -169,7 +177,7 @@ registerBlockType('mytheme/custom-cta', {
       bodyColor,
       backgroundImage,
       overlayColor,
-      overlayOpacity, 
+      overlayOpacity,
     } = attributes
     return (
       <div
@@ -194,6 +202,7 @@ registerBlockType('mytheme/custom-cta', {
           value={body}
           style={{ color: bodyColor }}
         />
+        <InnerBlocks.Content />
       </div>
     )
   },
