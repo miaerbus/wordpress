@@ -4,9 +4,13 @@
   "description": "My Wordpress Development",
   "main": "index.js",
   "scripts": {
-    "build:style": "node-sass wp-content/themes/mytheme/sass/main.scss wp-content/themes/mytheme/css/main.css -w",
+    "build:style": "node-sass wp-content/themes/mytheme/sass/main.scss wp-content/themes/mytheme/css/main.css",
+    "watch:style": "node-sass wp-content/themes/mytheme/sass/main.scss wp-content/themes/mytheme/css/main.css -w",
+    "build:mytheme": "node-sass wp-content/themes/mytheme/sass/mytheme/style.scss wp-content/themes/mytheme/mytheme.css",
+    "build:mytheme-editor": "node-sass wp-content/themes/mytheme/sass/mytheme/style-editor.scss wp-content/themes/mytheme/mytheme-editor.css",
     "build:scripts": "wp-scripts build wp-content/themes/mytheme/src/index.js -o wp-content/themes/mytheme/build/index.js",
-    "watch:scripts": "wp-scripts start wp-content/themes/mytheme/src/index.js -o wp-content/themes/mytheme/build/index.js"
+    "watch:scripts": "wp-scripts start wp-content/themes/mytheme/src/index.js -o wp-content/themes/mytheme/build/index.js",
+    "build": "run-p \"build:*\""
   },
   "author": "Mia Erbus",
   "keywords": [
@@ -19,9 +23,9 @@
     "scss"
   ],
   "devDependencies": {
-    "@wordpress/scripts": "12.1.1",
     "@babel/core": "^7.11.4",
     "@babel/preset-env": "^7.11.0",
+    "@wordpress/scripts": "12.1.1",
     "babelify": "^8.0.0",
     "browser-sync": "^2.18.13",
     "browserify": "^14.5.0",
@@ -39,6 +43,7 @@
     "gulp-strip-debug": "^1.1.0",
     "gulp-uglify": "^3.0.0",
     "gulp-uglifycss": "^1.0.9",
+    "npm-run-all": "^4.1.5",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   },

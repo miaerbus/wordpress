@@ -44,7 +44,7 @@ registerBlockType('mytheme/custom-cta', {
   },
 
   // built-in functions
-  edit({ attributes, setAttributes }) {
+  edit: ({ attributes, setAttributes }) => {
     const {
       title,
       body,
@@ -127,7 +127,7 @@ registerBlockType('mytheme/custom-cta', {
         </PanelBody>
       </InspectorControls>,
       <div
-        class="cta-container"
+        className="cta-container"
         style={{
           backgroundImage: `url(${backgroundImage})`,
           backgroundSize: 'cover',
@@ -161,7 +161,7 @@ registerBlockType('mytheme/custom-cta', {
       </div>,
     ]
   },
-  save({ attributes }) {
+  save: ({ attributes }) => {
     const {
       title,
       body,
@@ -169,11 +169,11 @@ registerBlockType('mytheme/custom-cta', {
       bodyColor,
       backgroundImage,
       overlayColor,
-      overlayOpacity,
+      overlayOpacity, 
     } = attributes
     return (
       <div
-        class="cta-container"
+        className="cta-container"
         style={{
           backgroundImage: `url(${backgroundImage})`,
           backgroundSize: 'cover',

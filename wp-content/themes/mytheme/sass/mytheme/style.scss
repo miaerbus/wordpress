@@ -1,0 +1,19 @@
+.cta-container {
+  padding: 10px 20px;
+  text-align: center;
+  position: relative;
+
+  .cta-overlay {
+    position: absolute;
+    //inset: 0px; // shorthand that corresponds to the top, right, bottom, and/or left properties.
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+  * {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+}

@@ -1,0 +1,14 @@
+.cta-container {
+  padding: 10px 20px;
+  text-align: center;
+  position: relative; }
+  .cta-container .cta-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0; }
+  .cta-container * {
+    text-align: center;
+    position: relative;
+    z-index: 1; }

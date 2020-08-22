@@ -24,17 +24,3 @@ header {
     }
   }
 }
-
-.cta-container {
-  text-align: center;
-  position: relative;
-  z-index: 1;
-  .cta-overlay {
-    position: absolute;
-    //inset: 0px; // shorthand that corresponds to the top, right, bottom, and/or left properties.
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-  }
-}
