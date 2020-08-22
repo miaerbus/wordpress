@@ -17,6 +17,11 @@ class CptCallbacks
     {
         $output = get_option('my_plugin_cpt');
 
+        if (isset($_POST["remove"])) {
+            unset($output[$_POST["remove"]]);
+            return $output;
+        }
+
         if (count($output) == 0) {
             $output = array($input['post_type'] => $input);
             return $output;

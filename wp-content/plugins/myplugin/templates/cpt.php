@@ -27,7 +27,17 @@
                     $public = $option['public'] ? "TRUE" : "FALSE";
                     $archive = $option['has_archive'] ? "TRUE" : "FALSE";
 
-                    echo "<tr><td>{$option['post_type']}</td><td>{$option['singular_name']}</td><td>{$option['plural_name']}</td><td>{$public}</td><td>{$archive}</td><td><a href='#'>EDIT</a> - <a href='#'>DELETE</a></td></tr>";
+                    echo "<tr><td>{$option['post_type']}</td><td>{$option['singular_name']}</td><td>{$option['plural_name']}</td><td>{$public}</td><td>{$archive}</td><td><a href='#'>EDIT</a> ";
+
+                    echo '<form method="post" action="options.php" class="inline-block" style="display: inline-block">';
+
+                    settings_fields('my_plugin_cpt_settings');
+                    echo '<input type="hidden" name="remove" value="' . $option['post_type']. '" >';
+                    submit_button('Delete', 'delete small', 'submit', false, array(
+                        'onclick' => 'return confirm("Are you sure you want to delete this Custom Post Type? The data associated with it will NOT be deleted.");',
+                    ));
+
+                    echo "</form></td></tr>";
                 }
                 ?>
             </table>
