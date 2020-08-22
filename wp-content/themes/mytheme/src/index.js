@@ -5,6 +5,8 @@ const {
   ColorPalette,
   MediaUpload,
   InnerBlocks,
+  BlockControls,
+  AlignmentToolbar,
 } = wp.editor
 const { PanelBody, IconButton, RangeControl } = wp.components
 const ALLOWED_BLOCKS = ['core/button']
@@ -36,6 +38,10 @@ registerBlockType('mytheme/custom-cta', {
       type: 'string',
       default: 'black',
     },
+    alignment: {
+      type: 'string',
+      default: 'none',
+    },
     backgroundImage: {
       type: 'string',
       default: null,
@@ -57,10 +63,12 @@ registerBlockType('mytheme/custom-cta', {
       body,
       titleColor,
       bodyColor,
+      alignment,
       backgroundImage,
       overlayColor,
       overlayOpacity,
     } = attributes
+
     // custom functions
     function onChangeTitle(newTitle) {
       setAttributes({ title: newTitle })
@@ -82,6 +90,9 @@ registerBlockType('mytheme/custom-cta', {
     }
     function onOverlayOpacityChange(newOpacity) {
       setAttributes({ overlayOpacity: newOpacity })
+    }
+    function onAlignmentChange(newAlignment) {
+      setAttributes({ alignment: newAlignment === undefined ? 'none' : newAlignment })
     }
 
     return [
@@ -149,13 +160,18 @@ registerBlockType('mytheme/custom-cta', {
             opacity: overlayOpacity,
           }}
         ></div>
+        {
+          <BlockControls>
+            <AlignmentToolbar value={alignment} onChange={onAlignmentChange} />
+          </BlockControls>
+        }
         <RichText
           key="editable"
           tagName="h2"
           placeholder="Your CTA Title"
           value={title}
           onChange={onChangeTitle}
-          style={{ color: titleColor }}
+          style={{ color: titleColor, textAlign: alignment }}
         />
         <RichText
           key="editable"
@@ -163,7 +179,7 @@ registerBlockType('mytheme/custom-cta', {
           placeholder="Your CTA Description"
           value={body}
           onChange={onChangeBody}
-          style={{ color: bodyColor }}
+          style={{ color: bodyColor, textAlign: alignment }}
         />
         <InnerBlocks allowedBlocks={ALLOWED_BLOCKS} />
       </div>,
@@ -175,6 +191,7 @@ registerBlockType('mytheme/custom-cta', {
       body,
       titleColor,
       bodyColor,
+      alignment,
       backgroundImage,
       overlayColor,
       overlayOpacity,
@@ -196,11 +213,11 @@ registerBlockType('mytheme/custom-cta', {
             opacity: overlayOpacity,
           }}
         ></div>
-        <h2 style={{ color: titleColor }}>{title}</h2>
+        <h2 style={{ color: titleColor, textAlign: alignment }}>{title}</h2>
         <RichText.Content
           tagName="p"
           value={body}
-          style={{ color: bodyColor }}
+          style={{ color: bodyColor, textAlign: alignment }}
         />
         <InnerBlocks.Content />
       </div>
