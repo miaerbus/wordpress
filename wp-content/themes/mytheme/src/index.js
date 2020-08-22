@@ -1,4 +1,5 @@
 const { registerBlockType } = wp.blocks
+const { RichText } = wp.editor
 
 registerBlockType('mytheme/custom-cta', {
   // built-in attributes
@@ -9,26 +10,54 @@ registerBlockType('mytheme/custom-cta', {
 
   // custom attributes
   attributes: {
-    author: {
+    title: {
       type: 'string',
+      source: 'html',
+      selector: 'h2',
+    },
+    body: {
+      type: 'string',
+      source: 'html',
+      selector: 'p',
     },
   },
 
   // built-in functions
   edit({ attributes, setAttributes }) {
+    const { title, body } = attributes
     // custom functions
-    function updateAuthor(event) {
-      setAttributes({ author: event.target.value })
+    function onChangeTitle(newTitle) {
+      setAttributes({ title: newTitle })
     }
-    return (
-      <input value={attributes.author} onChange={updateAuthor} type="text" />
-    )
+    function onChangeBody(newBody) {
+      setAttributes({ body: newBody })
+    }
+    return [
+      <div class="cta-container">
+        <RichText
+          key="editable"
+          tagName="h2"
+          placeholder="Your CTA Title"
+          value={title}
+          onChange={onChangeTitle}
+        />
+        <RichText
+          key="editable"
+          tagName="p"
+          placeholder="Your CTA Description"
+          value={body}
+          onChange={onChangeBody}
+        />
+      </div>,
+    ]
   },
   save({ attributes }) {
+    const { title, body } = attributes
     return (
-      <p>
-        Author Name: <i>{attributes.author}</i>
-      </p>
+      <div class="cta-container">
+        <h2>{title}</h2>
+        <RichText.Content tagName="p" value={body} />
+      </div>
     )
   },
 })
