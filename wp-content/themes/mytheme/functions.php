@@ -13,6 +13,17 @@ function load_css()
 }
 add_action('wp_enqueue_scripts', 'load_css');
 
+
+/**
+ *  Load admin CSS
+ */
+function load_admin_css()
+{
+    wp_register_style('admin', get_template_directory_uri() . '/style.css', array(), false, 'all');
+    wp_enqueue_style('admin');
+}
+add_action('admin_enqueue_scripts', 'load_admin_css');
+
 /**
  *  Load JQuery and Bootstrap JS
  */

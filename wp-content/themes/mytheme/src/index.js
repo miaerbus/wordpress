@@ -1,6 +1,6 @@
 const { registerBlockType } = wp.blocks
 const { RichText, InspectorControls, ColorPalette, MediaUpload } = wp.editor
-const { PanelBody, IconButton } = wp.components
+const { PanelBody, IconButton, RangeControl } = wp.components
 
 registerBlockType('mytheme/custom-cta', {
   // built-in attributes
@@ -33,11 +33,27 @@ registerBlockType('mytheme/custom-cta', {
       type: 'string',
       default: null,
     },
+    overlayColor: {
+      type: 'string',
+      default: 'black',
+    },
+    overlayOpacity: {
+      type: 'number',
+      default: 0.3,
+    },
   },
 
   // built-in functions
   edit({ attributes, setAttributes }) {
-    const { title, body, titleColor, bodyColor, backgroundImage } = attributes
+    const {
+      title,
+      body,
+      titleColor,
+      bodyColor,
+      backgroundImage,
+      overlayColor,
+      overlayOpacity,
+    } = attributes
     // custom functions
     function onChangeTitle(newTitle) {
       setAttributes({ title: newTitle })
@@ -54,6 +70,13 @@ registerBlockType('mytheme/custom-cta', {
     function onSelectImage(newImage) {
       setAttributes({ backgroundImage: newImage.sizes.full.url })
     }
+    function onOverlayColorChange(newColor) {
+      setAttributes({ overlayColor: newColor })
+    }
+    function onOverlayOpacityChange(newOpacity) {
+      setAttributes({ overlayOpacity: newOpacity })
+    }
+
     return [
       <InspectorControls style={{ marginBottom: '40px' }}>
         <PanelBody title={'Font Color Settings'}>
@@ -84,9 +107,41 @@ registerBlockType('mytheme/custom-cta', {
               </IconButton>
             )}
           />
+          <div style={{ marginTop: '20px', marginBottom: '40px' }}>
+            <p>
+              <strong>Overlay Color</strong>
+            </p>
+            <ColorPalette
+              value={overlayColor}
+              onChange={onOverlayColorChange}
+            />
+          </div>
+          <RangeControl
+            label={'Overlay Opacity'}
+            value={overlayOpacity}
+            onChange={onOverlayOpacityChange}
+            min={0}
+            max={1}
+            step={0.01}
+          />
         </PanelBody>
       </InspectorControls>,
-      <div class="cta-container">
+      <div
+        class="cta-container"
+        style={{
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      >
+        <div
+          className="cta-overlay"
+          style={{
+            background: overlayColor,
+            opacity: overlayOpacity,
+          }}
+        ></div>
         <RichText
           key="editable"
           tagName="h2"
@@ -107,9 +162,32 @@ registerBlockType('mytheme/custom-cta', {
     ]
   },
   save({ attributes }) {
-    const { title, body, titleColor, bodyColor } = attributes
+    const {
+      title,
+      body,
+      titleColor,
+      bodyColor,
+      backgroundImage,
+      overlayColor,
+      overlayOpacity,
+    } = attributes
     return (
-      <div class="cta-container">
+      <div
+        class="cta-container"
+        style={{
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      >
+        <div
+          className="cta-overlay"
+          style={{
+            background: overlayColor,
+            opacity: overlayOpacity,
+          }}
+        ></div>
         <h2 style={{ color: titleColor }}>{title}</h2>
         <RichText.Content
           tagName="p"

@@ -15,3 +15,14 @@ header {
       display: flex; }
       header .menu-top-bar-container .top-bar .menu-item {
         margin-right: 15px; }
+
+.cta-container {
+  text-align: center;
+  position: relative;
+  z-index: 1; }
+  .cta-container .cta-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0; }
